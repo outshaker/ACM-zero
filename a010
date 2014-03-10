@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+int makePrimeTable(int tableSize, int *Prime);
+int isPrime(int x, int nPrime, int *Prime);
+
+int maxN=10000000;
+int tableSize=3163; /* sqrt(maxN) */
+
+int main(){
+	int *Prime=calloc(tableSize,sizeof(int));
+	int nPrime=makePrimeTable(tableSize,Prime); /* first time make table. */
+	int maxPrime=Prime[nPrime];
+	
+	int x;
+	while(scanf("%d",&x)!=EOF){
+		if(x<=1 || x>maxN) break;
+		
+		int times=0;
+		int i;
+		int hasPrintFirstOne=0; /* chk for first prime is printed */
+		
+		while(1){
+			i=0; if(i>nPrime) break;
+			
+			
+			if(x%Prime[i]==0){
+				printf("%d",Prime[i]);
+				if(hasPrintFirstOne) printf(" * ");
+				else hasPrintFirstOne=1;
+			}
+			else continue;
+
+			while(x%Prime[i]==0){
+				x=x/Prime[i];times++;
+			};
+			if(times>1)	printf("^%d",times);
+			times=0;
+			if(x==1) break;
+			i++;
+		};
+		printf("\n");
+		hasPrintFirstOne=0;
+	};
+	
+	free(Prime);
+	return 0;
+};
+
+int makePrimeTable(int tableSize, int *Prime){
+	Prime[1]=2,Prime[2]=3; /* no ues index 0. */
+	int maxPrime=3,nPrime=2;
+	int i,j;
+	for(i=maxPrime;i<maxN;i=i+2){
+		for(j=1;j<=nPrime;j++){
+			if(i%Prime[j]==0) break;
+			if(j==nPrime){ /* on end of test, add i to prime[]. */
+				Prime[j+1]=i;maxPrime=i;nPrime++; /* update */
+				if(nPrime==tableSize) return nPrime;/* table is full. */
+			}
+		}
+	}
+	return nPrime; /* how many prime is make .*/
+}
+
+int isPrime(int x, int nPrime, int *Prime){
+	if(x<2 && x>0) return -1;
+	int upbound=(int)sqrt(x);
+	int i;
+	for(i=1;Prime[i]<upbound;i++){
+		if(x==Prime[i]) return x; /* return itslef. */
+		if(x%Prime[i]==0) return 0;
+	};
+	if(Prime[nPrime]>upbound) return x; /* check all primes need to test. */
+	else return -1;/* sqrt(x) too large, above the prime talbe. */
+};
+
