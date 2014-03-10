@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+/* this code use to make a table of prime that under 10000 */
+
+int main(){
+	int size=100000;
+	int *Prime=calloc(size,sizeof(int));
+	int maxPrime=3;
+	int nPrime=2;
+	int n=(int)sqrt(size);
+	Prime[1]=2,Prime[2]=3; /* no ues index 0. */
+	
+	int i,j;
+	for(i=3;i<size;i=i+2){
+		for(j=1;j<=nPrime;j++){
+			if(i%Prime[j]==0) break;
+			if(j==nPrime){ /* on end of test, add i to prime[]. */
+				Prime[j+1]=i;maxPrime=i;nPrime++; /* update */
+			}
+		}
+	}
+
+	printf("Prime[]={");
+	for(i=1;i<=nPrime;i++){
+		printf("%d,",Prime[i]);
+	}printf("\b};\n");
+	
+	return 0;
+}
