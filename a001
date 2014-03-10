@@ -1,0 +1,11 @@
+#include <stdio.h>
+
+int main (){
+	char s[256];
+		while(scanf("%s",s)==1){ /*input strings*/
+			printf("hello, %s\n",s);
+		};
+	return 0;
+}
+
+
