@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+void makePrimeTable(int N, int *Prime);
+int isPrime(int x, int *Prime);
+
+int maxPrime=3,nPrime=2;
+int maxN=2147483647;/*2^31-1*/
+	
+int main(){
+	int *Prime=calloc(10000,sizeof(int));
+	Prime[1]=2,Prime[2]=3; /* no ues index 0. */
+
+	makePrimeTable(maxN,Prime); /* first time make table. */
+	int x;
+	while(scanf("%d",&x)!=EOF){
+    if(isPrime(x,Prime)) printf("質數\n");
+    else printf("非質數\n");
+	};
+	free(Prime);
+	return 0;
+};
+
+void makePrimeTable(int N, int *Prime){
+	maxN=N;
+	int n=(int)sqrt(N);
+	int i,j;
+	for(i=maxPrime;i<n;i=i+2){
+		for(j=1;j<=nPrime;j++){
+			if(i%Prime[j]==0) break;
+			if(j==nPrime){ /* on end of test, add i to prime[]. */
+				Prime[j+1]=i;maxPrime=i;nPrime++; /* update */
+			}
+		}
+	}
+	return;
+}
+
+int isPrime(int x, int *Prime){
+	if(x<2 && x>0) return 0;
+	int i;
+	for(i=1;i<=nPrime;i++){
+		if(x==Prime[i]) return 1;
+		if(x%Prime[i]==0) return 0;
+	};
+	return -1;
+};
