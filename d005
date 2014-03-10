@@ -1,0 +1,20 @@
+#include<stdio.h>
+
+int main(){
+	int t,chk[4];
+	int i;
+	scanf("%d",&t);/* how many data need to load?*/
+	if(t>0 && t<=20){ /* chk 0 avoid RE */
+		for(i=0;i<t;i++){
+			scanf("%d %d %d %d",&chk[0],&chk[1],&chk[2],&chk[3]); /* load line */
+			printf("%d %d %d %d ",chk[0],chk[1],chk[2],chk[3]); /* print first 4 number */
+			if(chk[0]+chk[2]==chk[1]*2 && chk[1]+chk[3]==chk[2]*2) /* chk seqence.S1+S3==2*S2 */
+				printf("%d\n",(chk[3]<<1)-chk[2]);/* S5=S4*2-S3 */
+	    else{
+				if(chk[2]==0) printf("0\n"); /* chk S3==0 */
+				else printf("%d\n",chk[3]*chk[3]/chk[2]);/* S5=S4*S4/S3 */
+			};
+		};
+	};
+	return 0;
+}
