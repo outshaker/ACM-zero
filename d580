@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(){
+	int x,i;
+	int *T=calloc(10000,sizeof(int)); /* make table. */
+	T[0]=1;T[1]=1; /* init */
+	int lowline=1;
+	while(scanf("%d",&x)!=EOF){
+		if(x>lowline){
+			for(i=lowline+1;i<=x;i++){ /* fill table from lowline to x. */
+				T[i]=(T[i-1]+T[i-2])%2012;
+			};
+			lowline=x; /* update lowline to x. */
+		};
+		printf("%d\n",T[x]);
+	};
+	free(T);
+	return 0;
+}
