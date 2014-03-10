@@ -1,0 +1,17 @@
+#include<stdio.h>
+
+int main(){
+	int ary[9][9];
+	int i,j;
+	
+	while(1){
+			for(i=0;i<9;i++){
+				for(j=0;j<9;j++){
+					scanf("%d",&ary[i][j]);
+				};
+			};
+	};
+
+	
+	return 0;
+}
